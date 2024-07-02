@@ -41,6 +41,7 @@ class View(ft.UserControl):
         self.btn_path = ft.ElevatedButton(text="Calcola percorso",
                                            tooltip="Risolvi il punto 2",
                                           on_click=self._controller.handle_path)
+        self.btn_path.disabled = True
 
         row1 = ft.Row([self.ddyear, self.ddshape, self.btn_graph, self.btn_path],
                       alignment=ft.MainAxisAlignment.SPACE_EVENLY)

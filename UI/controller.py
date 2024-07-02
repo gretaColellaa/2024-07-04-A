@@ -20,22 +20,9 @@ class Controller:
             return
         shape = self._view.ddshape.value
         self._view.txt_result1.controls.clear()
-
-        self._model.create_graph_GA(anno, shape)
-        self._view.txt_result1.controls.append(ft.Text("=======SOLUZIONE AV======"))
-        self._view.txt_result1.controls.append(ft.Text(f"Numero di vertici: {self._model.get_num_of_nodes()}"))
-        self._view.txt_result1.controls.append(ft.Text(f"Numero di archi: {self._model.get_num_of_edges()}"))
-        self._view.txt_result1.controls.append(
-            ft.Text(f"Il grafo ha: {self._model.get_num_connesse()} componenti connesse"))
-        connessa = self._model.get_largest_connessa()
-        self._view.txt_result1.controls.append(ft.Text(f"La componente connessa più grande "
-                                                       f"è costituita da {len(connessa)} nodi:"))
-
         self._model.create_graph(anno, shape)
-        self._view.txt_result1.controls.append(ft.Text("=======SOLUZIONE CM======"))
         self._view.txt_result1.controls.append(ft.Text(f"Numero di vertici: {self._model.get_num_of_nodes()}"))
         self._view.txt_result1.controls.append(ft.Text(f"Numero di archi: {self._model.get_num_of_edges()}"))
-
         self._view.txt_result1.controls.append(
             ft.Text(f"Il grafo ha: {self._model.get_num_connesse()} componenti connesse"))
         connessa = self._model.get_largest_connessa()
@@ -44,6 +31,7 @@ class Controller:
         for c in connessa:
             self._view.txt_result1.controls.append(ft.Text(c))
 
+        self._view.btn_path.disabled = False
         self._view.update_page()
 
     def handle_path(self, e):

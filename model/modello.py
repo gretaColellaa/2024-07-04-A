@@ -23,16 +23,16 @@ class Model:
         self._nodes = DAO.get_nodes(year, shape)
         self._grafo.add_nodes_from(self._nodes)
 
-        # calcolo degli edges in modo programmatico
-        for i in range(0, len(self._nodes) - 1):
-            for j in range(i + 1, len(self._nodes)):
-                if self._nodes[i].state == self._nodes[j].state:
-                    self._grafo.add_edge(self._nodes[i], self._nodes[j])
+        print()
+        for n in self._nodes:
+            print(n)
+        print()
 
-    def create_graph_GA(self, year, shape):
-        self._grafo.clear()
-        self._nodes = DAO.get_nodes(year, shape)
-        self._grafo.add_nodes_from(self._nodes)
+        # # calcolo degli edges in modo programmatico
+        # for i in range(0, len(self._nodes) - 1):
+        #     for j in range(i + 1, len(self._nodes)):
+        #         if self._nodes[i].state == self._nodes[j].state and self._nodes[i].datetime<self._nodes[j].datetime:
+        #             self._grafo.add_edge(self._nodes[i], self._nodes[j])
 
         # calcolo degli edges tramite query
         for n in self._nodes:
@@ -95,30 +95,3 @@ class Model:
                     self._calcola_cammino_ricorsivo(parziale, nuovi_successivi)
                     # backtracking
                     parziale.pop()
-
-    # def getPath(self):
-    #     self._cammino_ottimo = []
-    #     self._lunghezza_ottima = 0
-    #     parziale = []
-    #     conn = self.get_largest_connessa()
-    #
-    #     for c in conn:
-    #         parziale.append(c)
-    #         self.ricorsione(parziale)
-    #         parziale.pop()
-    #
-    #     return self._cammino_ottimo
-    #
-    # def ricorsione(self, parziale):
-    #
-    #     if len(parziale) > self._lunghezza_ottima:
-    #         self._cammino_ottimo = copy.deepcopy(parziale)
-    #         self._lunghezza_ottima = len(parziale)
-    #
-    #     candidati = self._grafo.successors(parziale[-1])
-    #
-    #     for c in candidati:
-    #         if c.duration > parziale[-1].duration:
-    #             parziale.append(c)
-    #             self.ricorsione(parziale)
-    #             parziale.pop()
