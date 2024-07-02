@@ -15,8 +15,8 @@ class View(ft.UserControl):
         # title
         self._title = None
         # first row
-        self.ddyear = None
-        self.ddshape = None
+        self.ddyear: ft.Dropdown = None
+        self.ddshape: ft.Dropdown = None
         self.btn_graph = None
         self.btn_path = None
         # second row

@@ -21,7 +21,17 @@ class Controller:
         pass
 
     def fill_ddyear(self):
-        pass
+        years = self._model.get_years()
+        self._view.ddyear.options.clear()
+        for y in years:
+            self._view.ddyear.options.append(ft.dropdown.Option(f"{y}"))
 
     def fill_ddshape(self, e):
-        pass
+        anno = int(self._view.ddyear.value)
+        self._view.ddshape.options.clear()
+        self._view.ddshape.value = None
+        shapes = self._model.get_shapes_year(anno)
+        for s in shapes:
+            self._view.ddshape.options.append(ft.dropdown.Option(s))
+        self._view.update_page()
+
