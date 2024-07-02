@@ -23,22 +23,17 @@ class Model:
         self._nodes = DAO.get_nodes(year, shape)
         self._grafo.add_nodes_from(self._nodes)
 
-        print()
-        for n in self._nodes:
-            print(n)
-        print()
+        # calcolo degli edges in modo programmatico
+        for i in range(0, len(self._nodes) - 1):
+            for j in range(i + 1, len(self._nodes)):
+                if self._nodes[i].state == self._nodes[j].state and self._nodes[i].datetime<self._nodes[j].datetime:
+                    self._grafo.add_edge(self._nodes[i], self._nodes[j])
 
-        # # calcolo degli edges in modo programmatico
-        # for i in range(0, len(self._nodes) - 1):
-        #     for j in range(i + 1, len(self._nodes)):
-        #         if self._nodes[i].state == self._nodes[j].state and self._nodes[i].datetime<self._nodes[j].datetime:
-        #             self._grafo.add_edge(self._nodes[i], self._nodes[j])
-
-        # calcolo degli edges tramite query
-        for n in self._nodes:
-            self._idMap[n.id] = n
-        edges = DAO.getEdges(year, shape, self._idMap)
-        self._grafo.add_edges_from(edges)
+        # # calcolo degli edges tramite query
+        # for n in self._nodes:
+        #     self._idMap[n.id] = n
+        # edges = DAO.getEdges(year, shape, self._idMap)
+        # self._grafo.add_edges_from(edges)
 
     def get_num_connesse(self):
         return nx.number_weakly_connected_components(self._grafo)
