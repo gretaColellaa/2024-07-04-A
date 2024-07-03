@@ -15,7 +15,7 @@ class Controller:
             self._view.create_alert("Selezionare un anno!")
             return
         anno = int(self._view.ddyear.value)
-        if self._view.ddshape.value is None:
+        if self._view.ddshape.value is None or self._view.ddshape.value=="":
             self._view.create_alert("Selezionare una shape!")
             return
         shape = self._view.ddshape.value
