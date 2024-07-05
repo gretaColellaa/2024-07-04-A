@@ -44,7 +44,7 @@ class Controller:
         self._view.txt_result2.controls.append(ft.Text(f"Il punteggio del percorso ottimo è {punteggio}"))
         self._view.txt_result2.controls.append(ft.Text(f"Il percorso ottimo è costituito da {len(path)} nodi:"))
         for p in path:
-            self._view.txt_result2.controls.append(ft.Text(f"{p} - {p.duration}"))
+            self._view.txt_result2.controls.append(ft.Text(f"{p} | {p.shape} | {p.state} | {p.duration}"))
 
         self._view.update_page()
 

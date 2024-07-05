@@ -86,7 +86,7 @@ class Model:
                 # backtracking: visto che sto usando un dizionario nella classe per le occorrenze, quando faccio il
                 # backtracking vado anche a togliere una visita dalle occorrenze del mese corrispondente al nodo che
                 # vado a sottrarre
-                self._occorrenze_mese[parziale[-1].datetime.month] += 1
+                self._occorrenze_mese[parziale[-1].datetime.month] -= 1
                 parziale.pop()
 
     def _calcola_successivi(self, nodo: Sighting) -> list[Sighting]:
