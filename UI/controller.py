@@ -11,6 +11,7 @@ class Controller:
         self._model = model
 
     def handle_graph(self, e):
+        # Controllo degli inputs
         if self._view.ddyear.value is None:
             self._view.create_alert("Selezionare un anno!")
             return
@@ -19,6 +20,8 @@ class Controller:
             self._view.create_alert("Selezionare una shape!")
             return
         shape = self._view.ddshape.value
+
+        # stampa dei risultati
         self._view.txt_result1.controls.clear()
         self._model.create_graph(anno, shape)
         self._view.txt_result1.controls.append(ft.Text(f"Numero di vertici: {self._model.get_num_of_nodes()}"))
