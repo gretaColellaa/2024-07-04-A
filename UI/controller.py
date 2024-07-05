@@ -37,7 +37,8 @@ class Controller:
     def handle_path(self, e):
         self._view.txt_result2.controls.clear()
 
-        path = self._model.cammino_ottimo()
+        path, punteggio = self._model.cammino_ottimo()
+        self._view.txt_result2.controls.append(ft.Text(f"Il punteggio del percorso ottimo è {punteggio}"))
         self._view.txt_result2.controls.append(ft.Text(f"Il percorso ottimo è costituito da {len(path)} nodi:"))
         for p in path:
             self._view.txt_result2.controls.append(ft.Text(f"{p} - {p.duration}"))
