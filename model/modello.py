@@ -64,8 +64,10 @@ class Model:
         self._occorrenze_mese = dict.fromkeys(range(1, 13), 0)
 
         for nodo in self._nodes:
+            self._occorrenze_mese[nodo.datetime.month] += 1
             successivi_durata_crescente = self._calcola_successivi(nodo)
             self._calcola_cammino_ricorsivo([nodo], successivi_durata_crescente)
+            self._occorrenze_mese[nodo.datetime.month] -= 1
         return self._cammino_ottimo, self._score_ottimo
 
     def _calcola_cammino_ricorsivo(self, parziale: list[Sighting], successivi: list[Sighting]):
