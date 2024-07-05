@@ -96,7 +96,7 @@ class Model:
         successivi = self._grafo.successors(nodo)
         successivi_ammissibili = []
         for s in successivi:
-            if s.duration > nodo.duration and self._occorrenze_mese[nodo.datetime.month] < 3:
+            if s.duration > nodo.duration and self._occorrenze_mese[s.datetime.month] < 3:
                 successivi_ammissibili.append(s)
         return successivi_ammissibili
 
