@@ -3,6 +3,9 @@ import copy
 from database.DAO import DAO
 import networkx as nx
 
+from model.sighting import Sighting
+
+
 class Model:
     def __init__(self):
         self._avvistamenti = None
@@ -82,6 +85,7 @@ class Model:
         for nodo in self._grafo.nodes:
             self._ricorsionePunti([nodo], 0)
         print(self._bestPath, self._bestPunteggio)
+        self._bestPunteggio = Model._calcola_score(self._bestPath)
         return self._bestPunteggio, self._bestPath
 
     def _ricorsionePunti(self, parziale, puntiParziale):
@@ -101,10 +105,10 @@ class Model:
 
                 elif parziale[-1].datetime.month == succ.datetime.month\
                         and self._stessomese<4:
-                    punteggio = 300
+                    #punteggio += 200
                     parziale.append(succ)
                     self._stessomese+=1
-                    self._ricorsionePunti(parziale, puntiParziale + punteggio)
+                    self._ricorsionePunti(parziale, puntiParziale + 300)
                     parziale.pop()
                 else:
                     parziale.append(succ)
@@ -112,9 +116,19 @@ class Model:
                     self._ricorsionePunti(parziale, puntiParziale + punteggio)
                     parziale.pop()
 
-
-
-
-
+    @staticmethod
+    def _calcola_score(cammino: list[Sighting]) -> int:
+        """
+        Funzione che calcola il punteggio di un cammino.
+        :param cammino: il cammino che si vuole valutare.
+        :return: il punteggio
+        """
+        # parte del punteggio legata al numero di tappe
+        score = 100 * len(cammino)
+        # parte del punteggio legata al mese
+        for i in range(1, len(cammino)):
+            if cammino[i].datetime.month == cammino[i - 1].datetime.month:
+                score += 200
+        return score
 
 
