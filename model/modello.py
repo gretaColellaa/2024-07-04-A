@@ -85,7 +85,7 @@ class Model:
         return self._bestPunteggio, self._bestPath
 
     def _ricorsionePunti(self, parziale, puntiParziale):
-        self._stessomese = 1
+
         if puntiParziale > self._bestPunteggio:
             self._bestPunteggio = puntiParziale
             self._bestPath = copy.deepcopy(parziale)
@@ -93,7 +93,7 @@ class Model:
         ultimo = parziale[-1]
         for succ in self._grafo.successors(ultimo):
             punteggio = 100
-            if succ not in parziale:
+            if succ not in parziale and succ.duration > parziale[-1].duration:
                 if len(parziale) == 1:
                     parziale.append(succ)
                     self._ricorsionePunti(parziale, puntiParziale + punteggio)
@@ -101,7 +101,7 @@ class Model:
 
                 elif parziale[-1].datetime.month == succ.datetime.month\
                         and self._stessomese<4:
-                    punteggio = 200
+                    punteggio = 300
                     parziale.append(succ)
                     self._stessomese+=1
                     self._ricorsionePunti(parziale, puntiParziale + punteggio)
