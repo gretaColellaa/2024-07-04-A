@@ -1,3 +1,5 @@
+import copy
+
 from database.DAO import DAO
 import networkx as nx
 
@@ -72,6 +74,44 @@ class Model:
                 maxConnessa = lista
 
         return maxConnessa,max
+
+    def getPath(self):
+        self._bestPath = []
+        self._bestPunteggio = 0
+
+        for nodo in self._grafo.nodes:
+            self._ricorsionePunti([nodo], 0)
+        print(self._bestPath, self._bestPunteggio)
+        return self._bestPunteggio, self._bestPath
+
+    def _ricorsionePunti(self, parziale, puntiParziale):
+        self._stessomese = 1
+        if puntiParziale > self._bestPunteggio:
+            self._bestPunteggio = puntiParziale
+            self._bestPath = copy.deepcopy(parziale)
+
+        ultimo = parziale[-1]
+        for succ in self._grafo.successors(ultimo):
+            punteggio = 100
+            if succ not in parziale:
+                if len(parziale) == 1:
+                    parziale.append(succ)
+                    self._ricorsionePunti(parziale, puntiParziale + punteggio)
+                    parziale.pop()
+
+                elif parziale[-1].datetime.month == succ.datetime.month\
+                        and self._stessomese<4:
+                    punteggio = 200
+                    parziale.append(succ)
+                    self._stessomese+=1
+                    self._ricorsionePunti(parziale, puntiParziale + punteggio)
+                    parziale.pop()
+                else:
+                    parziale.append(succ)
+                    self._stessomese = 1
+                    self._ricorsionePunti(parziale, puntiParziale + punteggio)
+                    parziale.pop()
+
 
 
 

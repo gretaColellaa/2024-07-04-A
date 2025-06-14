@@ -37,7 +37,15 @@ class Controller:
 
 
     def handle_path(self, e):
-        pass
+        bestPunteggio, bestPath = self._model.getPath()
+        self._view.txt_result2.controls.append(ft.Text(
+            f"Il percorso ha un punteggio di: {bestPunteggio}"))
+
+        for n in bestPath:
+            self._view.txt_result2.controls.append(ft.Text(
+                f" {n.duration} - {n.datetime.month}"))
+
+        self._view.txt_result2.update()
 
 
     def fillDDanno(self):
